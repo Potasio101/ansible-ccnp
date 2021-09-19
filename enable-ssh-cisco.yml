@@ -14,8 +14,8 @@
  
       - name: enable_ssh
         telnet:
-          user: vooray
-          password: passwd
+          user: cisco
+          password: cisco
           login_prompt: "Username: "
           prompts:
             - "[>|#]"
