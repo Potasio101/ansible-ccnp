@@ -1,0 +1,31 @@
+---
+- name: enable shh
+  hosts: all
+  gather_facts: false
+  connection: local
+ 
+  tasks:
+ 
+      - name: check ssh
+        command:  /usr/bin/python /root/ansible/check_port.py "{{ansible_host}}"  22
+        register: ssh_listen
+        ignore_errors: True
+ 
+ 
+      - name: enable_ssh
+        telnet:
+          user: vooray
+          password: passwd
+          login_prompt: "Username: "
+          prompts:
+            - "[>|#]"
+          command:
+            - term le 0
+            - conf t
+            - ip domain-name lab.local
+            - crypto key generate rsa modulus 1024
+            - ip ssh version 2
+            - exit
+            - wr mem
+            - exit
+        when: ssh_listen|failed
