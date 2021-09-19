@@ -5,13 +5,6 @@
   connection: local
  
   tasks:
- 
-      - name: check ssh
-        command:  /usr/bin/python /root/ansible/check_port.py "{{ansible_host}}"  22
-        register: ssh_listen
-        ignore_errors: True
- 
- 
       - name: enable_ssh
         telnet:
           user: cisco
