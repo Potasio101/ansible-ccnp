@@ -1,3 +1,22 @@
+---
 - name: run show version on remote devices
-  cisco.ios.ios_command:
-    commands: show version
+  hosts: all
+  gather_facts: false
+  connection: local
+  
+  vars:
+    cli:
+      username: cisco
+      password: cisco
+      transport: cli
+      
+  tasks:
+    -name: Global config settings
+      ios_config:
+      provider: "{{ cli }}"
+      lines:
+      - vtp mode transparent
+      
+     register: print_output
+     
+     -debug: var=print_output
