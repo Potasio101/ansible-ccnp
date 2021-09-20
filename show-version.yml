@@ -1,22 +1,10 @@
----
 - name: run show version on remote devices
   hosts: all
-  gather_facts: false
-  connection: local
-  
-  vars:
-    cli:
-      username: cisco
-      password: cisco
-      transport: cli
-      
+  gather_facts: no
+  connection: network_cli  
   tasks:
     -name: Global config settings
       ios_config:
-      provider: "{{ cli }}"
-      lines:
+           lines:
       - vtp mode transparent
-      
-     register: print_output
-     
-     -debug: var=print_output
+      register: show_result
